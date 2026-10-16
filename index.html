@@ -1,0 +1,362 @@
+<title>Push × Investimento 404</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: identidade 404 — fundo azul-noite com brilhos azul/roxo, nav em pílula de vidro, hero com manchete Outfit, seções em cartões translúcidos */
+:root {
+  --bg: #030712;
+  --panel: rgba(255,255,255,0.035);
+  --panel-strong: rgba(255,255,255,0.06);
+  --line: rgba(255,255,255,0.08);
+  --fg: #ffffff;
+  --muted: #94a3b8;
+  --faint: #64748b;
+  --accent: #3b82f6;
+  --accent-2: #8b5cf6;
+  --ok: #34d399;
+  --bad: #f87171;
+  --font-display: 'Outfit', 'Arial Black', system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.55; overflow-x: hidden; }
+.glow { position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(40rem 32rem at 8% -6%, rgba(59,130,246,0.28), transparent 60%),
+    radial-gradient(36rem 30rem at 102% 70%, rgba(139,92,246,0.22), transparent 60%); }
+.wrap { position: relative; z-index: 1; max-width: 1120px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 20px 64px; }
+
+nav.pill { display: flex; align-items: center; justify-content: space-between; gap: 16px; max-width: 640px; margin: 0 auto 56px; padding: 10px 14px 10px 22px; border: 1px solid var(--line); border-radius: 999px; background: rgba(3,7,18,0.7); backdrop-filter: blur(12px); }
+.logo { font-family: var(--font-display); font-weight: 900; font-size: 26px; letter-spacing: -0.04em; line-height: 1; }
+.logo b { color: var(--accent); font-weight: 900; }
+.logo small { display: block; font-family: var(--font-body); font-size: 8px; font-weight: 600; letter-spacing: 0.18em; color: var(--muted); text-transform: uppercase; margin-top: 2px; }
+.navtabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.navtabs a { color: var(--muted); text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 12px; border-radius: 999px; }
+.navtabs a:hover, .navtabs a:focus-visible { color: var(--fg); background: var(--panel-strong); outline: none; }
+
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin: 0 0 16px; }
+.hero h1 { font-family: var(--font-display); font-weight: 900; font-size: clamp(2.4rem, 6.4vw, 4.6rem); line-height: 0.98; letter-spacing: -0.035em; margin: 0 0 20px; text-wrap: balance; max-width: 16ch; }
+.grad { background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero p.lede { color: var(--muted); font-size: 1.125rem; max-width: 60ch; margin: 0 0 40px; }
+.hero p.lede strong { color: var(--fg); font-weight: 600; }
+
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 14px; margin-bottom: 72px; }
+.kpi { border: 1px solid var(--line); border-radius: 20px; background: var(--panel); padding: 22px; min-width: 0; }
+.kpi .k { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+.kpi .v { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.9rem, 3.4vw, 2.5rem); line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.kpi .s { color: var(--muted); font-size: 13px; margin-top: 10px; font-variant-numeric: tabular-nums; }
+.kpi.hl { border-color: rgba(59,130,246,0.45); background: linear-gradient(160deg, rgba(59,130,246,0.16), rgba(139,92,246,0.08)); }
+
+section { margin-bottom: 80px; scroll-margin-top: 24px; }
+.sec-head { display: grid; gap: 8px; margin-bottom: 24px; }
+.sec-head .eyebrow { margin: 0; }
+.sec-head h2 { font-family: var(--font-display); font-weight: 900; font-size: clamp(1.8rem, 4vw, 2.8rem); letter-spacing: -0.03em; line-height: 1.02; margin: 0; text-wrap: balance; }
+.sec-head p { color: var(--muted); margin: 0; max-width: 64ch; }
+
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 14px; }
+.card { border: 1px solid var(--line); border-radius: 20px; background: var(--panel); padding: 22px; min-width: 0; position: relative; }
+.card h3 { font-size: 15px; font-weight: 600; margin: 0 0 4px; }
+.card .note { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+
+.versus { display: grid; gap: 18px; }
+.vrow .lbl { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+.vrow .lbl b { color: var(--fg); font-weight: 600; font-variant-numeric: tabular-nums; }
+.bar { height: 12px; border-radius: 999px; background: rgba(255,255,255,0.06); overflow: hidden; }
+.bar span { display: block; height: 100%; border-radius: 999px; }
+
+.tbl { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; min-width: 520px; }
+th { text-align: right; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 10px 12px; border-bottom: 1px solid var(--line); }
+td { text-align: right; padding: 14px 12px; border-bottom: 1px solid var(--line); }
+th:first-child, td:first-child { text-align: left; }
+td.brand { font-weight: 600; }
+td.brand i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
+.chip { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.chip.up { color: var(--ok); background: rgba(52,211,153,0.12); }
+.ok { color: var(--ok); } .bad { color: var(--bad); }
+
+.verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; margin-bottom: 14px; }
+.big { font-family: var(--font-display); font-weight: 900; font-size: clamp(3rem, 8vw, 5.4rem); line-height: 0.95; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.big small { font-size: 0.32em; font-weight: 700; color: var(--muted); letter-spacing: 0; }
+.verdict ul { margin: 0; padding-left: 18px; color: var(--muted); display: grid; gap: 8px; }
+.verdict ul strong { color: var(--fg); font-weight: 600; }
+
+.chart { position: relative; min-height: 240px; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { fill: var(--muted); font-family: var(--font-body); font-size: 11px; }
+.tip { position: absolute; pointer-events: none; display: none; z-index: 5; background: #0b1224; border: 1px solid var(--line); border-radius: 12px; padding: 8px 12px; font-size: 12px; white-space: nowrap; box-shadow: 0 10px 30px rgba(0,0,0,0.45); font-variant-numeric: tabular-nums; }
+.tip .t { color: var(--muted); margin-bottom: 3px; }
+.tip i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; }
+
+.method { border-top: 1px solid var(--line); padding-top: 24px; color: var(--faint); font-size: 13px; display: grid; gap: 6px; max-width: 80ch; }
+.method strong { color: var(--muted); font-weight: 600; }
+.ticker { overflow: hidden; border-block: 1px solid var(--line); margin: 0 0 40px; padding: 10px 0; color: var(--faint); font-family: var(--font-display); font-weight: 700; letter-spacing: 0.12em; font-size: 12px; text-transform: uppercase; white-space: nowrap; }
+.ticker span { display: inline-block; padding-right: 2rem; }
+@media (prefers-reduced-motion: no-preference) {
+  .ticker div { display: inline-block; animation: tk 40s linear infinite; }
+  @keyframes tk { to { transform: translateX(-50%); } }
+}
+@media (max-width: 520px) { .navtabs a { padding: 6px 8px; font-size: 11px; } nav.pill { margin-bottom: 36px; } }
+</style>
+
+<div class="glow" aria-hidden="true"></div>
+<div class="wrap">
+  <nav class="pill" aria-label="Seções">
+    <div class="logo">40<b>4</b><small>Digital Media</small></div>
+    <div class="navtabs"><a href="#receita">Receita</a><a href="#push">Push</a><a href="#base">Base</a></div>
+  </nav>
+
+  <header class="hero">
+    <p class="eyebrow">Direto Google · 16/09 – 15/10/2026</p>
+    <h1>Notícia faz <span class="grad" id="h-mult">2,3×</span> mais push que o Solicite.</h1>
+    <p class="lede" id="lede">—</p>
+  </header>
+
+  <div class="ticker" aria-hidden="true"><div id="tick"></div></div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <section id="receita">
+    <div class="sec-head">
+      <p class="eyebrow">01 · Receita × investimento</p>
+      <h2>O push paga mais do dobro no Notícia</h2>
+      <p>Quanto da verba do Direto volta como receita de notificação e welcome drip, e como isso muda o ROI de cada marca.</p>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h3>Push devolve do investimento</h3>
+        <p class="note">Receita de push + WD ÷ investimento das campanhas da marca.</p>
+        <div class="versus" id="versus"></div>
+      </div>
+      <div class="card">
+        <h3>Resumo dos 30 dias</h3>
+        <p class="note">ROI = (receita − investimento) ÷ investimento. "Direto" é a receita das próprias campanhas.</p>
+        <div class="tbl"><table>
+          <thead><tr><th>Marca</th><th>Investido</th><th>Receita direta</th><th>Receita push</th><th>ROI direto</th><th>ROI c/ push</th></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="push">
+    <div class="sec-head">
+      <p class="eyebrow">02 · Push por dia</p>
+      <h2>Receita diária de push + welcome drip</h2>
+      <p>Soma das chaves nt e wd de cada base, nos sites Notícia, Solicite e Portal Finança.</p>
+    </div>
+    <div class="card">
+      <div class="legend"><span><i style="background:var(--accent)"></i>Notícia Oficial</span><span><i style="background:var(--accent-2)"></i>Solicite Fácil</span></div>
+      <div class="chart" id="ch-push"></div>
+    </div>
+  </section>
+
+  <section id="base">
+    <div class="sec-head">
+      <p class="eyebrow">03 · Base do Notícia</p>
+      <h2>Quanto investir para a base não encolher</h2>
+      <p>Saldo diário = inscritos − descadastros, comparado com o investimento do mesmo dia nas campanhas do Notícia.</p>
+    </div>
+    <div class="verdict">
+      <div class="card kpi hl">
+        <p class="k">Investimento de equilíbrio</p>
+        <div class="big" id="be">—<small>/dia</small></div>
+        <p class="s" id="be-sub">—</p>
+      </div>
+      <div class="card">
+        <h3>O que os 30 dias mostram</h3>
+        <ul id="facts"></ul>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h3>Investimento × saldo da base</h3>
+        <p class="note">Cada ponto é um dia. A reta cruza o zero no investimento de equilíbrio.</p>
+        <div class="chart" id="ch-scatter"></div>
+      </div>
+      <div class="card">
+        <h3>Dia a dia</h3>
+        <p class="note">Linha tracejada = equilíbrio. Vermelho = base encolheu.</p>
+        <div class="chart" id="ch-daily"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="method">
+    <div><strong>Fontes:</strong> investimento da aba Campanhas da planilha de Aquisição (conta "Direto Brasil", campanhas que começam com no / sf); receita do Ad Exchange por utm_campaign nas planilhas de Campaigns (Notícia, SF e PF); inscrições e descadastros da base do Notícia.</div>
+    <div><strong>Câmbio:</strong> US$ 1 = R$ 5,1202, o mesmo da planilha de Aquisição. Ficaram de fora R$ 4,2 mil do Facebook Direto BR (sf).</div>
+    <div><strong>Equilíbrio:</strong> regressão linear do saldo diário sobre o investimento do mesmo dia. É uma estimativa: se o volume de disparos e de descadastros mudar, ele muda junto. O dia 15/10 pode estar parcial.</div>
+  </div>
+</div>
+
+<script>
+const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":265.89,"sd":4596.05,"sub":2356,"uns":1355},{"d":"09-17","ni":1977.07,"np":311.92,"nd":2619.14,"si":3942.18,"sp":324.11,"sd":4808.84,"sub":1592,"uns":1273},{"d":"09-18","ni":1775.37,"np":309.62,"nd":2082.85,"si":3991.87,"sp":328.67,"sd":5547.12,"sub":1335,"uns":982},{"d":"09-19","ni":1851.59,"np":296.0,"nd":2109.52,"si":4169.31,"sp":282.84,"sd":5555.31,"sub":1252,"uns":1352},{"d":"09-20","ni":2078.61,"np":295.38,"nd":2689.49,"si":4189.32,"sp":197.08,"sd":5655.62,"sub":1541,"uns":984},{"d":"09-21","ni":2830.15,"np":369.37,"nd":3519.06,"si":4265.21,"sp":284.12,"sd":6218.89,"sub":1873,"uns":1061},{"d":"09-22","ni":6292.7,"np":633.83,"nd":7091.78,"si":4173.67,"sp":294.16,"sd":5131.36,"sub":3949,"uns":1060},{"d":"09-23","ni":6616.61,"np":656.72,"nd":7494.8,"si":4187.85,"sp":275.57,"sd":4325.7,"sub":3927,"uns":1715},{"d":"09-24","ni":8266.11,"np":646.32,"nd":9614.4,"si":1916.05,"sp":210.39,"sd":2547.91,"sub":5161,"uns":1846},{"d":"09-25","ni":8497.44,"np":753.08,"nd":9340.37,"si":1857.88,"sp":177.77,"sd":2226.88,"sub":4722,"uns":1744},{"d":"09-26","ni":5256.65,"np":688.05,"nd":6347.87,"si":1874.96,"sp":210.8,"sd":2952.72,"sub":3156,"uns":2613},{"d":"09-27","ni":4442.82,"np":641.61,"nd":5685.27,"si":1894.29,"sp":167.48,"sd":2948.77,"sub":3259,"uns":1673},{"d":"09-28","ni":3972.97,"np":655.08,"nd":5282.31,"si":1693.77,"sp":170.91,"sd":2298.92,"sub":3177,"uns":1834},{"d":"09-29","ni":3529.22,"np":721.79,"nd":4804.64,"si":2103.43,"sp":188.88,"sd":2624.0,"sub":2904,"uns":1582},{"d":"09-30","ni":2750.2,"np":612.94,"nd":3448.81,"si":1794.4,"sp":188.47,"sd":2727.63,"sub":2659,"uns":2053},{"d":"10-01","ni":3113.75,"np":599.11,"nd":3725.51,"si":1815.97,"sp":176.13,"sd":2326.0,"sub":3222,"uns":1787},{"d":"10-02","ni":1872.01,"np":524.36,"nd":2190.17,"si":1898.54,"sp":158.32,"sd":2399.02,"sub":1494,"uns":1322},{"d":"10-03","ni":2228.87,"np":505.93,"nd":2572.85,"si":1945.82,"sp":182.69,"sd":2940.68,"sub":1893,"uns":1777},{"d":"10-04","ni":1656.99,"np":443.77,"nd":1921.51,"si":1934.26,"sp":141.16,"sd":2684.78,"sub":1674,"uns":1248},{"d":"10-05","ni":2055.44,"np":446.64,"nd":2318.38,"si":3028.82,"sp":213.97,"sd":3481.07,"sub":2296,"uns":1382},{"d":"10-06","ni":3755.76,"np":567.32,"nd":4712.89,"si":3118.11,"sp":201.17,"sd":3335.96,"sub":4265,"uns":1346},{"d":"10-07","ni":3816.87,"np":602.14,"nd":5089.38,"si":3126.85,"sp":196.31,"sd":2921.64,"sub":4512,"uns":1883},{"d":"10-08","ni":1864.31,"np":499.94,"nd":2164.87,"si":2715.09,"sp":202.61,"sd":2819.28,"sub":966,"uns":1747},{"d":"10-09","ni":1282.14,"np":499.48,"nd":1297.51,"si":2472.0,"sp":253.86,"sd":3235.71,"sub":771,"uns":1218},{"d":"10-10","ni":654.95,"np":479.51,"nd":839.71,"si":2092.4,"sp":244.69,"sd":3690.28,"sub":371,"uns":1381},{"d":"10-11","ni":1618.15,"np":400.66,"nd":2035.38,"si":2072.99,"sp":160.11,"sd":3487.42,"sub":1113,"uns":1070},{"d":"10-12","ni":1317.01,"np":399.12,"nd":1617.62,"si":2952.53,"sp":203.73,"sd":5386.76,"sub":937,"uns":1059},{"d":"10-13","ni":798.01,"np":527.84,"nd":970.07,"si":3223.76,"sp":244.34,"sd":5292.19,"sub":402,"uns":970},{"d":"10-14","ni":1373.36,"np":492.41,"nd":1755.56,"si":3270.86,"sp":269.53,"sd":5889.82,"sub":584,"uns":992},{"d":"10-15","ni":2995.5,"np":415.4,"nd":3405.34,"si":3240.0,"sp":224.37,"sd":4574.18,"sub":867,"uns":1010}];
+(() => {
+  const RATE = 5.1202;
+  const brl = (v, d = 0) => 'R$ ' + v.toLocaleString('pt-BR', {minimumFractionDigits: d, maximumFractionDigits: d});
+  const brlk = (v) => v >= 10000 ? 'R$ ' + (v / 1000).toLocaleString('pt-BR', {maximumFractionDigits: 1}) + ' mil' : brl(v);
+  const pct = (v) => (v * 100).toLocaleString('pt-BR', {maximumFractionDigits: 1}) + '%';
+  const sum = (k) => ROWS.reduce((s, r) => s + r[k], 0);
+  const T = {
+    no: {name: 'Notícia Oficial', color: 'var(--accent)', inv: sum('ni'), push: sum('np'), dir: sum('nd')},
+    sf: {name: 'Solicite Fácil', color: 'var(--accent-2)', inv: sum('si'), push: sum('sp'), dir: sum('sd')}
+  };
+  Object.values(T).forEach(t => { t.roiD = (t.dir - t.inv) / t.inv; t.roiP = (t.dir + t.push - t.inv) / t.inv; t.share = t.push / t.inv; });
+
+  // regressão saldo ~ investimento (Notícia)
+  const xs = ROWS.map(r => r.ni), ys = ROWS.map(r => r.sub - r.uns), n = xs.length;
+  const mx = xs.reduce((a, b) => a + b) / n, my = ys.reduce((a, b) => a + b) / n;
+  let sxy = 0, sxx = 0, syy = 0; xs.forEach((x, i) => { sxy += (x - mx) * (ys[i] - my); sxx += (x - mx) ** 2; syy += (ys[i] - my) ** 2; });
+  const b = sxy / sxx, a = my - b * mx, BE = -a / b, R = sxy / Math.sqrt(sxx * syy);
+  const below = ROWS.filter(r => r.ni < BE), belowNeg = below.filter(r => r.sub - r.uns < 0).length;
+  const above = ROWS.filter(r => r.ni >= BE), aboveNeg = above.filter(r => r.sub - r.uns < 0).length;
+  const last7 = ROWS.slice(-8, -1);
+  const avg7inv = last7.reduce((s, r) => s + r.ni, 0) / last7.length, avg7net = last7.reduce((s, r) => s + r.sub - r.uns, 0) / last7.length;
+  const unsAvg = ROWS.reduce((s, r) => s + r.uns, 0) / n;
+
+  const mult = T.no.push / T.sf.push;
+  document.getElementById('h-mult').textContent = mult.toLocaleString('pt-BR', {maximumFractionDigits: 1}) + '×';
+  document.getElementById('lede').innerHTML = '';
+  const lede = document.getElementById('lede');
+  const add = (txt, strong) => { const el = strong ? document.createElement('strong') : document.createTextNode(txt); if (strong) el.textContent = txt; lede.appendChild(el); };
+  add('Em 30 dias o push + welcome drip do Notícia rendeu '); add(brlk(T.no.push), 1); add(', contra '); add(brlk(T.sf.push), 1);
+  add(' do Solicite, mesmo com investimentos parecidos. Para a base do Notícia se manter, o Direto precisa investir cerca de '); add(brl(Math.round(BE / 50) * 50), 1); add(' por dia.');
+
+  document.getElementById('tick').innerHTML = '';
+  const tk = document.getElementById('tick');
+  for (let i = 0; i < 2; i++) ['Performance marketing', 'Push notifications', 'Welcome drip', 'Ad Exchange', 'Direto Google', 'FGTS'].forEach(w => { const s = document.createElement('span'); s.textContent = w + '  •'; tk.appendChild(s); });
+
+  const kpis = [
+    {k: 'Push + WD · Notícia', v: brlk(T.no.push), s: 'média de ' + brl(T.no.push / n) + '/dia', hl: true},
+    {k: 'Push + WD · Solicite', v: brlk(T.sf.push), s: 'média de ' + brl(T.sf.push / n) + '/dia'},
+    {k: 'ROI com push · Notícia', v: pct(T.no.roiP), s: 'era ' + pct(T.no.roiD) + ' só com o direto'},
+    {k: 'ROI com push · Solicite', v: pct(T.sf.roiP), s: 'era ' + pct(T.sf.roiD) + ' só com o direto'}
+  ];
+  const kp = document.getElementById('kpis');
+  kpis.forEach(o => { const d = document.createElement('div'); d.className = 'kpi' + (o.hl ? ' hl' : '');
+    [['p', 'k', o.k], ['div', 'v', o.v], ['div', 's', o.s]].forEach(([t, c, x]) => { const e = document.createElement(t); e.className = c; e.textContent = x; d.appendChild(e); }); kp.appendChild(d); });
+
+  const vs = document.getElementById('versus'), maxS = Math.max(T.no.share, T.sf.share);
+  Object.values(T).forEach(t => {
+    const row = document.createElement('div'); row.className = 'vrow';
+    const l = document.createElement('div'); l.className = 'lbl'; const nm = document.createElement('span'); nm.textContent = t.name; const vb = document.createElement('b'); vb.textContent = pct(t.share) + ' · ' + brlk(t.push) + ' de ' + brlk(t.inv); l.append(nm, vb);
+    const bar = document.createElement('div'); bar.className = 'bar'; const sp = document.createElement('span'); sp.style.width = (t.share / maxS * 100) + '%'; sp.style.background = t.color; bar.appendChild(sp);
+    row.append(l, bar); vs.appendChild(row);
+  });
+  const g = document.createElement('div'); g.className = 'vrow'; g.style.color = 'var(--muted)'; g.style.fontSize = '13px';
+  g.textContent = 'Com o push, o ROI do Notícia sobe ' + ((T.no.roiP - T.no.roiD) * 100).toLocaleString('pt-BR', {maximumFractionDigits: 1}) + ' p.p.; o do Solicite, ' + ((T.sf.roiP - T.sf.roiD) * 100).toLocaleString('pt-BR', {maximumFractionDigits: 1}) + ' p.p.';
+  vs.appendChild(g);
+
+  const tb = document.getElementById('tbody');
+  Object.values(T).forEach(t => {
+    const tr = document.createElement('tr');
+    const c0 = document.createElement('td'); c0.className = 'brand'; const dot = document.createElement('i'); dot.style.background = t.color; c0.append(dot, document.createTextNode(t.name)); tr.appendChild(c0);
+    [brlk(t.inv), brlk(t.dir), brlk(t.push)].forEach(x => { const td = document.createElement('td'); td.textContent = x; tr.appendChild(td); });
+    const c4 = document.createElement('td'); c4.textContent = pct(t.roiD); c4.className = t.roiD >= 0 ? 'ok' : 'bad'; tr.appendChild(c4);
+    const c5 = document.createElement('td'); const ch = document.createElement('span'); ch.className = 'chip up'; ch.textContent = pct(t.roiP); c5.appendChild(ch); tr.appendChild(c5);
+    tb.appendChild(tr);
+  });
+
+  const beEl = document.getElementById('be'); beEl.firstChild.textContent = brl(Math.round(BE / 50) * 50);
+  document.getElementById('be-sub').textContent = 'Cada R$ 1 mil a mais ≈ ' + Math.round(b * 1000).toLocaleString('pt-BR') + ' inscritos líquidos · correlação ' + R.toFixed(2).replace('.', ',');
+  const facts = [
+    ['Abaixo do equilíbrio: ', `${belowNeg} de ${below.length} dias com saldo negativo.`],
+    ['Acima do equilíbrio: ', `${aboveNeg} de ${above.length} dias com saldo negativo.`],
+    ['Última semana (08–14/10): ', `investimento médio de ${brl(avg7inv)}/dia e saldo médio de ${Math.round(avg7net).toLocaleString('pt-BR')} inscritos/dia.`],
+    ['Descadastros: ', `média de ${Math.round(unsAvg).toLocaleString('pt-BR')} por dia, que o Direto precisa repor.`]
+  ];
+  const ul = document.getElementById('facts');
+  facts.forEach(([s, t]) => { const li = document.createElement('li'); const st = document.createElement('strong'); st.textContent = s; li.append(st, document.createTextNode(t)); ul.appendChild(li); });
+
+  // ---------- charts (SVG) ----------
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+  const lin = (d0, d1, r0, r1) => (v) => r0 + (v - d0) / (d1 - d0) * (r1 - r0);
+  const niceTicks = (lo, hi, count) => { const span = hi - lo, step0 = span / count, mag = Math.pow(10, Math.floor(Math.log10(step0))), f = step0 / mag;
+    const step = (f >= 5 ? 10 : f >= 2 ? 5 : f >= 1 ? 2 : 1) * mag; const out = []; for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) out.push(+v.toFixed(6)); return {ticks: out, lo: Math.floor(lo / step) * step, hi: Math.ceil(hi / step) * step}; };
+  const kfmt = (v) => Math.abs(v) >= 1000 ? (v / 1000).toLocaleString('pt-BR', {maximumFractionDigits: 1}) + ' mil' : String(Math.round(v));
+  const dd = (s) => s.split('-').reverse().join('/');
+  const tipOf = (box) => { const t = document.createElement('div'); t.className = 'tip'; box.appendChild(t); return t; };
+  const showTip = (box, tip, ev, head, lines) => { tip.textContent = ''; const h = document.createElement('div'); h.className = 't'; h.textContent = head; tip.appendChild(h);
+    lines.forEach(([c, txt]) => { const d = document.createElement('div'); if (c) { const i = document.createElement('i'); i.style.background = c; d.appendChild(i); } d.appendChild(document.createTextNode(txt)); tip.appendChild(d); });
+    tip.style.display = 'block'; const r = box.getBoundingClientRect(); let x = ev.clientX - r.left + 14, y = ev.clientY - r.top - 10;
+    x = Math.min(x, box.clientWidth - tip.offsetWidth); tip.style.left = Math.max(0, x) + 'px'; tip.style.top = Math.max(0, y) + 'px'; };
+  const grid = (svg, ys, ticks, x0, x1, fmt) => ticks.forEach(t => { el('line', {x1: x0, x2: x1, y1: ys(t), y2: ys(t), stroke: 'rgba(255,255,255,0.06)'}, svg); const tx = el('text', {x: x0 - 8, y: ys(t) + 4, 'text-anchor': 'end'}, svg); tx.textContent = fmt(t); });
+
+  function pushChart() {
+    const box = document.getElementById('ch-push'); box.textContent = ''; const W = Math.max(320, box.clientWidth), H = 260, m = {t: 10, r: 10, b: 28, l: 56};
+    const svg = el('svg', {viewBox: `0 0 ${W} ${H}`}, box);
+    const mxv = Math.max(...ROWS.map(r => Math.max(r.np, r.sp))); const nt = niceTicks(0, mxv, 4);
+    const x = lin(0, n - 1, m.l, W - m.r), y = lin(0, nt.hi, H - m.b, m.t);
+    grid(svg, y, nt.ticks, m.l, W - m.r, v => 'R$ ' + v);
+    const every = Math.ceil(n / Math.max(3, Math.floor(W / 80)));
+    ROWS.forEach((r, i) => { if (i % every === 0) { const t = el('text', {x: x(i), y: H - 8, 'text-anchor': 'middle'}, svg); t.textContent = dd(r.d); } });
+    [['np', '#3b82f6'], ['sp', '#8b5cf6']].forEach(([k, c]) => {
+      const pts = ROWS.map((r, i) => `${x(i)},${y(r[k])}`).join(' ');
+      const area = el('polygon', {points: `${x(0)},${y(0)} ${pts} ${x(n - 1)},${y(0)}`, fill: c, 'fill-opacity': 0.08}, svg);
+      el('polyline', {points: pts, fill: 'none', stroke: c, 'stroke-width': 2.5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round'}, svg);
+    });
+    const rule = el('line', {y1: m.t, y2: H - m.b, stroke: 'rgba(255,255,255,0.25)', visibility: 'hidden'}, svg);
+    const d1 = el('circle', {r: 4.5, fill: '#3b82f6', visibility: 'hidden'}, svg), d2 = el('circle', {r: 4.5, fill: '#8b5cf6', visibility: 'hidden'}, svg);
+    const tip = tipOf(box); const hit = el('rect', {x: m.l, y: m.t, width: W - m.l - m.r, height: H - m.t - m.b, fill: 'transparent'}, svg);
+    hit.addEventListener('mousemove', (ev) => { const pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY; const p = pt.matrixTransform(svg.getScreenCTM().inverse());
+      const i = Math.max(0, Math.min(n - 1, Math.round((p.x - m.l) / (W - m.l - m.r) * (n - 1)))); const r = ROWS[i];
+      [rule, d1, d2].forEach(e => e.setAttribute('visibility', 'visible')); rule.setAttribute('x1', x(i)); rule.setAttribute('x2', x(i));
+      d1.setAttribute('cx', x(i)); d1.setAttribute('cy', y(r.np)); d2.setAttribute('cx', x(i)); d2.setAttribute('cy', y(r.sp));
+      showTip(box, tip, ev, dd(r.d), [['#3b82f6', 'Notícia ' + brl(r.np)], ['#8b5cf6', 'Solicite ' + brl(r.sp)]]); });
+    hit.addEventListener('mouseleave', () => { tip.style.display = 'none'; [rule, d1, d2].forEach(e => e.setAttribute('visibility', 'hidden')); });
+  }
+
+  function scatter() {
+    const box = document.getElementById('ch-scatter'); box.textContent = ''; const W = Math.max(320, box.clientWidth), H = 320, m = {t: 24, r: 12, b: 40, l: 52};
+    const svg = el('svg', {viewBox: `0 0 ${W} ${H}`}, box);
+    const xt = niceTicks(0, Math.max(...xs) * 1.04, 4), yt = niceTicks(Math.min(...ys), Math.max(...ys), 5);
+    const x = lin(0, xt.hi, m.l, W - m.r), y = lin(yt.lo, yt.hi, H - m.b, m.t);
+    grid(svg, y, yt.ticks, m.l, W - m.r, kfmt);
+    xt.ticks.forEach(t => { const tx = el('text', {x: x(t), y: H - 20, 'text-anchor': 'middle'}, svg); tx.textContent = 'R$ ' + kfmt(t); });
+    const lab = el('text', {x: W - m.r, y: H - 4, 'text-anchor': 'end'}, svg); lab.textContent = 'investimento no dia →';
+    el('line', {x1: m.l, x2: W - m.r, y1: y(0), y2: y(0), stroke: 'rgba(255,255,255,0.3)'}, svg);
+    el('line', {x1: x(0), x2: x(xt.hi), y1: y(a), y2: y(a + b * xt.hi), stroke: 'url(#lg)', 'stroke-width': 2.5, 'stroke-linecap': 'round'}, svg);
+    const defs = el('defs', {}, svg); const lg = el('linearGradient', {id: 'lg', x1: 0, x2: 1, y1: 0, y2: 0}, defs); el('stop', {offset: 0, 'stop-color': '#3b82f6'}, lg); el('stop', {offset: 1, 'stop-color': '#8b5cf6'}, lg);
+    el('line', {x1: x(BE), x2: x(BE), y1: m.t, y2: H - m.b, stroke: 'rgba(255,255,255,0.45)', 'stroke-dasharray': '4 4'}, svg);
+    const bt = el('text', {x: x(BE) + 6, y: m.t - 8, style: 'fill:#fff;font-weight:600'}, svg); bt.textContent = 'equilíbrio ≈ ' + brl(Math.round(BE / 50) * 50);
+    if (x(BE) + 6 + 150 > W) { bt.setAttribute('text-anchor', 'end'); bt.setAttribute('x', x(BE) - 6); }
+    const tip = tipOf(box);
+    ROWS.forEach((r, i) => { const net = ys[i];
+      const c = el('circle', {cx: x(r.ni), cy: y(net), r: 6, fill: net >= 0 ? '#3b82f6' : '#f87171', 'fill-opacity': 0.85, stroke: '#030712', 'stroke-width': 1.5}, svg);
+      c.addEventListener('mousemove', (ev) => showTip(box, tip, ev, dd(r.d), [[null, 'Investimento ' + brl(r.ni)], [null, 'Saldo ' + (net > 0 ? '+' : '') + net.toLocaleString('pt-BR')]]));
+      c.addEventListener('mouseleave', () => tip.style.display = 'none'); });
+  }
+
+  function daily() {
+    const box = document.getElementById('ch-daily'); box.textContent = ''; const W = Math.max(320, box.clientWidth), H = 320, m = {l: 52, r: 8};
+    const top = {t: 22, b: 132}, bot = {t: 170, b: H - 26};
+    const svg = el('svg', {viewBox: `0 0 ${W} ${H}`}, box);
+    const it = niceTicks(0, Math.max(...xs), 3), nt = niceTicks(Math.min(...ys), Math.max(...ys), 4);
+    const yi = lin(0, it.hi, top.b, top.t), yn = lin(nt.lo, nt.hi, bot.b, bot.t);
+    grid(svg, yi, it.ticks, m.l, W - m.r, v => 'R$ ' + kfmt(v)); grid(svg, yn, nt.ticks, m.l, W - m.r, kfmt);
+    const l1 = el('text', {x: m.l, y: 12}, svg); l1.textContent = 'Investimento Notícia';
+    const l2 = el('text', {x: m.l, y: bot.t - 12}, svg); l2.textContent = 'Saldo da base';
+    const step = (W - m.l - m.r) / n, bw = Math.min(22, step * 0.7), off = (step - bw) / 2;
+    ROWS.forEach((r, i) => { const x0 = m.l + i * step + off, net = ys[i];
+      el('rect', {x: x0, width: bw, y: yi(r.ni), height: top.b - yi(r.ni), rx: Math.min(4, bw / 2), fill: r.ni >= BE ? '#3b82f6' : 'rgba(148,163,184,0.35)'}, svg);
+      el('rect', {x: x0, width: bw, y: yn(Math.max(0, net)), height: Math.abs(yn(net) - yn(0)), rx: Math.min(4, bw / 2), fill: net >= 0 ? '#8b5cf6' : '#f87171'}, svg); });
+    el('line', {x1: m.l, x2: W - m.r, y1: yi(BE), y2: yi(BE), stroke: 'rgba(255,255,255,0.55)', 'stroke-dasharray': '4 4'}, svg);
+    el('line', {x1: m.l, x2: W - m.r, y1: yn(0), y2: yn(0), stroke: 'rgba(255,255,255,0.3)'}, svg);
+    const every = Math.ceil(n / Math.max(3, Math.floor(W / 70)));
+    ROWS.forEach((r, i) => { if (i % every === 0) { const t = el('text', {x: m.l + i * step + step / 2, y: H - 6, 'text-anchor': 'middle'}, svg); t.textContent = dd(r.d); } });
+    const tip = tipOf(box);
+    ROWS.forEach((r, i) => { const h = el('rect', {x: m.l + i * step, width: step, y: 0, height: H, fill: 'transparent'}, svg); const net = ys[i];
+      h.addEventListener('mousemove', (ev) => showTip(box, tip, ev, dd(r.d), [['#3b82f6', 'Investimento ' + brl(r.ni)], [net >= 0 ? '#8b5cf6' : '#f87171', 'Saldo ' + (net > 0 ? '+' : '') + net.toLocaleString('pt-BR')]]));
+      h.addEventListener('mouseleave', () => tip.style.display = 'none'); });
+  }
+
+  const draw = () => { pushChart(); scatter(); daily(); };
+  draw(); let to; window.addEventListener('resize', () => { clearTimeout(to); to = setTimeout(draw, 150); });
+})();
+</script>
