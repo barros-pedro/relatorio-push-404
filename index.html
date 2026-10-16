@@ -6,30 +6,33 @@
 <style>
 /* Layout: identidade 404 — uma coluna, duas perguntas. 1) quanto volta em push por R$ 1; 2) quanto investir para a base não encolher */
 :root {
-  --bg: #030712;
-  --panel: rgba(255,255,255,0.035);
-  --line: rgba(255,255,255,0.08);
-  --fg: #ffffff;
-  --muted: #94a3b8;
-  --faint: #64748b;
-  --accent: #3b82f6;
-  --accent-2: #8b5cf6;
-  --bad: #f87171;
+  --bg: #f5f7fb;
+  --panel: #ffffff;
+  --line: rgba(15,23,42,0.09);
+  --fg: #0b1224;
+  --muted: #56657c;
+  --faint: #8592a6;
+  --accent: #2563eb;
+  --accent-2: #7c3aed;
+  --bad: #dc2626;
+  --warn-bg: #fff7e6;
+  --warn-fg: #9a5b00;
+  --shadow: 0 1px 2px rgba(15,23,42,0.04), 0 8px 24px rgba(15,23,42,0.05);
   --font-display: 'Outfit', 'Arial Black', system-ui, sans-serif;
   --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  color-scheme: dark;
+  color-scheme: light;
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.55; overflow-x: hidden; }
 .glow { position: fixed; inset: 0; pointer-events: none; z-index: 0;
-  background: radial-gradient(40rem 32rem at 6% -8%, rgba(59,130,246,0.24), transparent 60%),
-              radial-gradient(36rem 30rem at 104% 80%, rgba(139,92,246,0.18), transparent 60%); }
+  background: radial-gradient(40rem 32rem at 6% -8%, rgba(37,99,235,0.10), transparent 60%),
+              radial-gradient(36rem 30rem at 104% 80%, rgba(124,58,237,0.08), transparent 60%); }
 .wrap { position: relative; z-index: 1; max-width: 980px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; }
 
 .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 64px; }
 .logo { font-family: var(--font-display); font-weight: 900; font-size: 26px; letter-spacing: -0.04em; line-height: 1; }
 .logo b { color: var(--accent); font-weight: 900; }
-.period { font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; }
+.period { background: var(--panel); font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; }
 
 .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
 h1, h2 { font-family: var(--font-display); font-weight: 900; letter-spacing: -0.035em; text-wrap: balance; margin: 0; }
@@ -42,8 +45,8 @@ section { margin-bottom: 96px; }
 
 /* comparação principal */
 .duel { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; margin-bottom: 14px; }
-.side { border: 1px solid var(--line); border-radius: 22px; background: var(--panel); padding: 26px; min-width: 0; }
-.side.win { border-color: rgba(59,130,246,0.5); background: linear-gradient(160deg, rgba(59,130,246,0.15), rgba(59,130,246,0.03)); }
+.side { border: 1px solid var(--line); border-radius: 22px; background: var(--panel); padding: 26px; min-width: 0; box-shadow: var(--shadow); }
+.side.win { border-color: rgba(37,99,235,0.35); background: linear-gradient(160deg, #eaf1ff, #ffffff 70%); }
 .side .who { display: flex; align-items: center; gap: 10px; font-weight: 600; margin-bottom: 18px; }
 .side .who i { width: 10px; height: 10px; border-radius: 50%; }
 .side .num { font-family: var(--font-display); font-weight: 900; font-size: clamp(3.2rem, 9vw, 5.2rem); line-height: 0.92; letter-spacing: -0.045em; font-variant-numeric: tabular-nums; }
@@ -52,7 +55,7 @@ section { margin-bottom: 96px; }
 .side dt { color: var(--muted); }
 .side dd { margin: 0; text-align: right; font-weight: 600; }
 
-.card { border: 1px solid var(--line); border-radius: 22px; background: var(--panel); padding: 24px; min-width: 0; position: relative; }
+.card { border: 1px solid var(--line); border-radius: 22px; background: var(--panel); padding: 24px; min-width: 0; position: relative; box-shadow: var(--shadow); }
 .card h3 { font-size: 15px; font-weight: 600; margin: 0 0 4px; }
 .card .note { color: var(--muted); font-size: 13px; margin: 0 0 14px; max-width: 70ch; }
 .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
@@ -60,8 +63,8 @@ section { margin-bottom: 96px; }
 
 /* base */
 .answer { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 14px; margin-bottom: 14px; }
-.stat { border: 1px solid var(--line); border-radius: 22px; background: var(--panel); padding: 24px; min-width: 0; }
-.stat.key { border-color: rgba(59,130,246,0.5); background: linear-gradient(160deg, rgba(59,130,246,0.15), rgba(139,92,246,0.06)); }
+.stat { border: 1px solid var(--line); border-radius: 22px; background: var(--panel); padding: 24px; min-width: 0; box-shadow: var(--shadow); }
+.stat.key { border-color: rgba(37,99,235,0.35); background: linear-gradient(160deg, #eaf1ff, #f6f0ff); }
 .stat .k { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
 .stat .v { font-family: var(--font-display); font-weight: 900; font-size: clamp(2.4rem, 6vw, 3.6rem); line-height: 0.95; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
 .stat .v small { font-size: 0.4em; font-weight: 700; color: var(--muted); letter-spacing: 0; }
@@ -70,10 +73,20 @@ section { margin-bottom: 96px; }
 .chart { position: relative; }
 .chart svg { display: block; width: 100%; height: auto; }
 .chart text { fill: var(--muted); font-family: var(--font-body); font-size: 11px; }
-.tip { position: absolute; pointer-events: none; display: none; z-index: 5; background: #0b1224; border: 1px solid var(--line); border-radius: 12px; padding: 8px 12px; font-size: 12px; white-space: nowrap; box-shadow: 0 10px 30px rgba(0,0,0,0.45); font-variant-numeric: tabular-nums; }
+.tip { position: absolute; pointer-events: none; display: none; z-index: 5; background: var(--panel); color: var(--fg); border: 1px solid var(--line); border-radius: 12px; padding: 8px 12px; font-size: 12px; white-space: nowrap; box-shadow: 0 10px 30px rgba(15,23,42,0.14); font-variant-numeric: tabular-nums; }
 .tip .t { color: var(--muted); margin-bottom: 3px; }
 .tip i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; }
 
+.flag { display: inline-flex; align-items: center; gap: 6px; background: var(--warn-bg); color: var(--warn-fg); font-size: 12px; font-weight: 600; border-radius: 999px; padding: 4px 10px; }
+.tbl { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; min-width: 560px; }
+th { text-align: right; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 10px 12px; border-bottom: 1px solid var(--line); }
+td { text-align: right; padding: 13px 12px; border-bottom: 1px solid var(--line); }
+th:first-child, td:first-child { text-align: left; }
+tr.est td { color: var(--muted); }
+tr.est td:first-child { font-style: italic; }
+td.hl { font-weight: 700; color: var(--fg); }
+.sides3 .side .num { font-size: clamp(2.8rem, 8vw, 4.4rem); }
 .foot { border-top: 1px solid var(--line); padding-top: 22px; color: var(--faint); font-size: 12.5px; display: grid; gap: 6px; max-width: 80ch; }
 .foot strong { color: var(--muted); font-weight: 600; }
 </style>
@@ -118,9 +131,27 @@ section { margin-bottom: 96px; }
     </div>
   </section>
 
+  <section id="empate">
+    <p class="eyebrow">Quanto a aquisição pode perder</p>
+    <h2 id="h3">—</h2>
+    <p class="lede" id="lede3">—</p>
+
+    <div class="duel sides3" id="duel3"></div>
+
+    <div class="card">
+      <h3>ROI bruto mínimo da campanha para o total empatar</h3>
+      <p class="note">ROI bruto é o da planilha de Aquisição (receita AdX antes da taxa). A taxa da plataforma sai de toda a receita do site: campanhas diretas e push. Linhas em itálico são cenários, porque a taxa da Publink não está confirmada.</p>
+      <div class="tbl"><table>
+        <thead><tr><th>Site · taxa da plataforma</th><th>Receita bruta mínima por R$ 1</th><th>ROI bruto mínimo</th><th>ROI bruto atual</th><th>ROI líquido total atual</th></tr></thead>
+        <tbody id="tb3"></tbody>
+      </table></div>
+    </div>
+  </section>
+
   <div class="foot">
     <div><strong>Receita de push:</strong> Ad Exchange das chaves de notificação (nt) e welcome drip (wd) de cada base, somadas nos sites Notícia, Solicite e Portal Finança. Câmbio US$ 1 = R$ 5,1202.</div>
     <div><strong>Investimento:</strong> conta "Direto Brasil" no Google Ads, campanhas que começam com no (Notícia) ou sf (Solicite).</div>
+    <div><strong>Taxas:</strong> Adseleto (Solicite) ~7% de toda a receita do site. Publink (Notícia) cobra menos, mas o valor não está confirmado; usamos cenários de 3%, 5% e 7%.</div>
     <div><strong>Equilíbrio:</strong> regressão linear do saldo diário da base sobre o investimento do mesmo dia. É uma estimativa sobre 30 dias; se o volume de disparos ou de descadastros mudar, ele muda junto.</div>
   </div>
 </div>
@@ -137,8 +168,8 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
   const set = (id, parts) => { const e = document.getElementById(id); e.textContent = ''; parts.forEach(p => { if (typeof p === 'string') e.appendChild(document.createTextNode(p)); else { const s = document.createElement('strong'); s.textContent = p[0]; e.appendChild(s); } }); };
 
   const B = {
-    no: {name: 'Notícia Oficial', color: '#3b82f6', inv: sum('ni'), push: sum('np')},
-    sf: {name: 'Solicite Fácil', color: '#8b5cf6', inv: sum('si'), push: sum('sp')}
+    no: {name: 'Notícia Oficial', color: '#2563eb', inv: sum('ni'), push: sum('np')},
+    sf: {name: 'Solicite Fácil', color: '#7c3aed', inv: sum('si'), push: sum('sp')}
   };
   Object.values(B).forEach(b => b.per = b.push / b.inv);
   const mult = B.no.per / B.sf.per;
@@ -172,6 +203,31 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
   document.getElementById('s-slope').textContent = int(slope * 1000);
   const be = document.getElementById('s-be'); be.textContent = brl(BEr); const sm = document.createElement('small'); sm.textContent = '/dia'; be.appendChild(sm);
 
+
+  // ---------- empate por site ----------
+  const dir = {no: sum('nd'), sf: sum('sd')};
+  const be3 = (k, f) => { const inv = B[k].inv, p = B[k].push, d = dir[k];
+    const need = inv / (1 - f) - p; return {need: need / inv, roiMin: need / inv - 1, roiNow: (d - inv) / inv, roiNet: ((d + p) * (1 - f) - inv) / inv}; };
+  const sp = (v) => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v * 100).toLocaleString('pt-BR', {maximumFractionDigits: 1}) + '%';
+  const sfR = be3('sf', 0.07), noLo = be3('no', 0.07), noHi = be3('no', 0.03);
+  document.getElementById('h3').textContent = 'O Solicite precisa empatar na campanha. O Notícia tem folga.';
+  set('lede3', ['Somando o push e descontando a taxa da plataforma, o Solicite só empata se a campanha tiver ROI bruto de ', [sp(sfR.roiMin)], '. O Notícia aguenta entre ', [sp(noLo.roiMin)], ' e ', [sp(noHi.roiMin)], ', conforme a taxa da Publink, que ainda não está confirmada.']);
+  const d3el = document.getElementById('duel3');
+  [[B.no, sp(noLo.roiMin) + ' a ' + sp(noHi.roiMin), 'Publink · taxa não confirmada (3% a 7%)', true], [B.sf, sp(sfR.roiMin), 'Adseleto · ~7% de toda a receita', false]].forEach(([b, v, fee, flag], i) => {
+    const d = document.createElement('div'); d.className = 'side' + (i === 0 ? ' win' : '');
+    const who = document.createElement('div'); who.className = 'who'; const dot = document.createElement('i'); dot.style.background = b.color; who.append(dot, document.createTextNode(b.name));
+    const num = document.createElement('div'); num.className = 'num'; num.textContent = v;
+    const per = document.createElement('p'); per.className = 'per'; per.textContent = 'ROI bruto mínimo da campanha para o total empatar';
+    const f = document.createElement('div'); if (flag) { f.className = 'flag'; f.textContent = '⚠ ' + fee; } else { f.className = 'per'; f.style.margin = '0'; f.textContent = fee; }
+    d.append(who, num, per, f); d3el.appendChild(d);
+  });
+  const tb3 = document.getElementById('tb3');
+  [['Solicite · Adseleto 7%', 'sf', 0.07, false], ['Notícia · Publink 3% (cenário)', 'no', 0.03, true], ['Notícia · Publink 5% (cenário)', 'no', 0.05, true], ['Notícia · Publink 7% (teto)', 'no', 0.07, true]].forEach(([lab, k, f, est]) => {
+    const r = be3(k, f), tr = document.createElement('tr'); if (est) tr.className = 'est';
+    [[lab], [cents(r.need)], [sp(r.roiMin), 'hl'], [sp(r.roiNow)], [sp(r.roiNet)]].forEach(([t, c]) => { const td = document.createElement('td'); td.textContent = t; if (c) td.className = c; tr.appendChild(td); });
+    tb3.appendChild(tr);
+  });
+
   // ---------- charts ----------
   const NS = 'http://www.w3.org/2000/svg';
   const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
@@ -186,7 +242,7 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
     lines.forEach(([c, txt]) => { const d = document.createElement('div'); if (c) { const i = document.createElement('i'); i.style.background = c; d.appendChild(i); } d.appendChild(document.createTextNode(txt)); tip.appendChild(d); });
     tip.style.display = 'block'; const r = box.getBoundingClientRect(); const x = Math.min(ev.clientX - r.left + 14, box.clientWidth - tip.offsetWidth);
     tip.style.left = Math.max(0, x) + 'px'; tip.style.top = Math.max(0, ev.clientY - r.top - 10) + 'px'; };
-  const grid = (svg, ys, ticks, x0, x1, fmt) => ticks.forEach(t => { el('line', {x1: x0, x2: x1, y1: ys(t), y2: ys(t), stroke: 'rgba(255,255,255,0.06)'}, svg); const tx = el('text', {x: x0 - 8, y: ys(t) + 4, 'text-anchor': 'end'}, svg); tx.textContent = fmt(t); });
+  const grid = (svg, ys, ticks, x0, x1, fmt) => ticks.forEach(t => { el('line', {x1: x0, x2: x1, y1: ys(t), y2: ys(t), stroke: 'rgba(15,23,42,0.07)'}, svg); const tx = el('text', {x: x0 - 8, y: ys(t) + 4, 'text-anchor': 'end'}, svg); tx.textContent = fmt(t); });
   const dateAxis = (svg, xAt, y, W) => { const every = Math.ceil(n / Math.max(3, Math.floor(W / 72))); ROWS.forEach((r, i) => { if (i % every === 0) { const t = el('text', {x: xAt(i), y, 'text-anchor': 'middle'}, svg); t.textContent = dd(r.d); } }); };
 
   function ratioChart() {
@@ -205,8 +261,8 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
     el('text', {x: W, y: m.t - 2, 'text-anchor': 'end', style: 'fill:#64748b'}, svg).textContent = 'invest. R$';
     const bw = Math.min(10, step * 0.34);
     ROWS.forEach((r, i) => {
-      el('rect', {x: x(i) - bw - 1, width: bw, y: yv(r.ni), height: H - m.b - yv(r.ni), rx: Math.min(3, bw / 2), fill: B.no.color, 'fill-opacity': 0.16}, svg);
-      el('rect', {x: x(i) + 1, width: bw, y: yv(r.si), height: H - m.b - yv(r.si), rx: Math.min(3, bw / 2), fill: B.sf.color, 'fill-opacity': 0.16}, svg);
+      el('rect', {x: x(i) - bw - 1, width: bw, y: yv(r.ni), height: H - m.b - yv(r.ni), rx: Math.min(3, bw / 2), fill: B.no.color, 'fill-opacity': 0.13}, svg);
+      el('rect', {x: x(i) + 1, width: bw, y: yv(r.si), height: H - m.b - yv(r.si), rx: Math.min(3, bw / 2), fill: B.sf.color, 'fill-opacity': 0.13}, svg);
     });
     dateAxis(svg, x, H - 8, W);
     // média do período
@@ -215,7 +271,7 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
       const pts = data.map((d, i) => `${x(i)},${y(d[k])}`).join(' ');
             el('polyline', {points: pts, fill: 'none', stroke: c, 'stroke-width': 2.5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round'}, svg);
     });
-    const rule = el('line', {y1: m.t, y2: H - m.b, stroke: 'rgba(255,255,255,0.25)', visibility: 'hidden'}, svg);
+    const rule = el('line', {y1: m.t, y2: H - m.b, stroke: 'rgba(15,23,42,0.25)', visibility: 'hidden'}, svg);
     const d1 = el('circle', {r: 4.5, fill: B.no.color, visibility: 'hidden'}, svg), d2 = el('circle', {r: 4.5, fill: B.sf.color, visibility: 'hidden'}, svg);
     const tip = tipOf(box), hit = el('rect', {x: m.l, y: m.t, width: W - m.l - m.r, height: H - m.t - m.b, fill: 'transparent'}, svg);
     hit.addEventListener('mousemove', (ev) => { const pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY; const p = pt.matrixTransform(svg.getScreenCTM().inverse());
@@ -238,15 +294,15 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
     el('text', {x: m.l, y: bot.t - 14}, svg).textContent = 'Saldo da base';
     const step = (W - m.l - m.r) / n, bw = Math.min(22, step * 0.68), off = (step - bw) / 2, rx = Math.min(4, bw / 2);
     ROWS.forEach((r, i) => { const x0 = m.l + i * step + off, net = ys[i];
-      el('rect', {x: x0, width: bw, y: yi(r.ni), height: top.b - yi(r.ni), rx, fill: r.ni >= BE ? '#3b82f6' : 'rgba(148,163,184,0.35)'}, svg);
-      el('rect', {x: x0, width: bw, y: yn(Math.max(0, net)), height: Math.max(1, Math.abs(yn(net) - yn(0))), rx, fill: net >= 0 ? '#8b5cf6' : '#f87171'}, svg); });
-    el('line', {x1: m.l, x2: W - m.r, y1: yi(BE), y2: yi(BE), stroke: 'rgba(255,255,255,0.6)', 'stroke-dasharray': '4 4'}, svg);
-    const lbl = el('text', {x: W - m.r, y: yi(BE) - 6, 'text-anchor': 'end', style: 'fill:#fff;font-weight:600'}, svg); lbl.textContent = 'equilíbrio ' + brl(BEr);
-    el('line', {x1: m.l, x2: W - m.r, y1: yn(0), y2: yn(0), stroke: 'rgba(255,255,255,0.3)'}, svg);
+      el('rect', {x: x0, width: bw, y: yi(r.ni), height: top.b - yi(r.ni), rx, fill: r.ni >= BE ? '#2563eb' : 'rgba(100,116,139,0.28)'}, svg);
+      el('rect', {x: x0, width: bw, y: yn(Math.max(0, net)), height: Math.max(1, Math.abs(yn(net) - yn(0))), rx, fill: net >= 0 ? '#7c3aed' : '#ef4444'}, svg); });
+    el('line', {x1: m.l, x2: W - m.r, y1: yi(BE), y2: yi(BE), stroke: 'rgba(15,23,42,0.55)', 'stroke-dasharray': '4 4'}, svg);
+    const lbl = el('text', {x: W - m.r, y: yi(BE) - 6, 'text-anchor': 'end', style: 'fill:#0b1224;font-weight:600'}, svg); lbl.textContent = 'equilíbrio ' + brl(BEr);
+    el('line', {x1: m.l, x2: W - m.r, y1: yn(0), y2: yn(0), stroke: 'rgba(15,23,42,0.3)'}, svg);
     dateAxis(svg, (i) => m.l + i * step + step / 2, H - 8, W);
     const tip = tipOf(box);
     ROWS.forEach((r, i) => { const h = el('rect', {x: m.l + i * step, width: step, y: 0, height: H, fill: 'transparent'}, svg), net = ys[i];
-      h.addEventListener('mousemove', (ev) => showTip(box, tip, ev, dd(r.d), [[r.ni >= BE ? '#3b82f6' : '#94a3b8', 'Investimento ' + brl(r.ni)], [null, `Inscritos ${int(r.sub)} · descadastros ${int(r.uns)}`], [net >= 0 ? '#8b5cf6' : '#f87171', 'Saldo ' + (net > 0 ? '+' : '') + int(net)]]));
+      h.addEventListener('mousemove', (ev) => showTip(box, tip, ev, dd(r.d), [[r.ni >= BE ? '#2563eb' : '#94a3b8', 'Investimento ' + brl(r.ni)], [null, `Inscritos ${int(r.sub)} · descadastros ${int(r.uns)}`], [net >= 0 ? '#7c3aed' : '#ef4444', 'Saldo ' + (net > 0 ? '+' : '') + int(net)]]));
       h.addEventListener('mouseleave', () => tip.style.display = 'none'); });
   }
 
