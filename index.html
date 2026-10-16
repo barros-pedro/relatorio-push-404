@@ -95,7 +95,7 @@ section { margin-bottom: 96px; }
     <div class="card">
       <h3>Receita de push a cada R$ 1 investido, por dia</h3>
       <p class="note" id="daynote">—</p>
-      <div class="legend"><span><i style="background:var(--accent)"></i>Notícia Oficial</span><span><i style="background:var(--accent-2)"></i>Solicite Fácil</span></div>
+      <div class="legend"><span><i style="background:var(--accent)"></i>Notícia Oficial</span><span><i style="background:var(--accent-2)"></i>Solicite Fácil</span><span><i style="background:rgba(148,163,184,0.25)"></i>Investimento do dia (barras, eixo da direita)</span></div>
       <div class="chart" id="ch-ratio"></div>
     </div>
   </section>
@@ -191,25 +191,35 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
 
   function ratioChart() {
     const box = document.getElementById('ch-ratio'); box.textContent = '';
-    const W = Math.max(320, box.clientWidth), H = 280, m = {t: 12, r: 12, b: 28, l: 52};
+    const W = Math.max(320, box.clientWidth), H = 300, m = {t: 12, r: 54, b: 28, l: 52};
     const svg = el('svg', {viewBox: `0 0 ${W} ${H}`}, box);
     const data = ROWS.map(r => ({d: r.d, no: r.np / r.ni, sf: r.sp / r.si}));
     const yt = niceTicks(0, Math.max(...data.map(d => Math.max(d.no, d.sf))), 4);
-    const x = lin(0, n - 1, m.l, W - m.r), y = lin(0, yt.hi, H - m.b, m.t);
+    const step = (W - m.l - m.r) / n;
+    const x = (i) => m.l + i * step + step / 2, y = lin(0, yt.hi, H - m.b, m.t);
     grid(svg, y, yt.ticks, m.l, W - m.r, v => cents(v));
+    // investimento ao fundo (eixo da direita, sem destaque)
+    const vt = niceTicks(0, Math.max(...ROWS.map(r => Math.max(r.ni, r.si))), 4);
+    const yv = lin(0, vt.hi, H - m.b, m.t);
+    vt.ticks.forEach(t => { const tx = el('text', {x: W - m.r + 8, y: yv(t) + 4, 'text-anchor': 'start', style: 'fill:#64748b'}, svg); tx.textContent = kfmt(t); });
+    el('text', {x: W, y: m.t - 2, 'text-anchor': 'end', style: 'fill:#64748b'}, svg).textContent = 'invest. R$';
+    const bw = Math.min(10, step * 0.34);
+    ROWS.forEach((r, i) => {
+      el('rect', {x: x(i) - bw - 1, width: bw, y: yv(r.ni), height: H - m.b - yv(r.ni), rx: Math.min(3, bw / 2), fill: B.no.color, 'fill-opacity': 0.16}, svg);
+      el('rect', {x: x(i) + 1, width: bw, y: yv(r.si), height: H - m.b - yv(r.si), rx: Math.min(3, bw / 2), fill: B.sf.color, 'fill-opacity': 0.16}, svg);
+    });
     dateAxis(svg, x, H - 8, W);
     // média do período
     [['no', B.no], ['sf', B.sf]].forEach(([k, b]) => el('line', {x1: m.l, x2: W - m.r, y1: y(b.per), y2: y(b.per), stroke: b.color, 'stroke-opacity': 0.45, 'stroke-dasharray': '3 5'}, svg));
     [['no', B.no.color], ['sf', B.sf.color]].forEach(([k, c]) => {
       const pts = data.map((d, i) => `${x(i)},${y(d[k])}`).join(' ');
-      if (k === 'no') el('polygon', {points: `${x(0)},${y(0)} ${pts} ${x(n - 1)},${y(0)}`, fill: c, 'fill-opacity': 0.08}, svg);
-      el('polyline', {points: pts, fill: 'none', stroke: c, 'stroke-width': 2.5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round'}, svg);
+            el('polyline', {points: pts, fill: 'none', stroke: c, 'stroke-width': 2.5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round'}, svg);
     });
     const rule = el('line', {y1: m.t, y2: H - m.b, stroke: 'rgba(255,255,255,0.25)', visibility: 'hidden'}, svg);
     const d1 = el('circle', {r: 4.5, fill: B.no.color, visibility: 'hidden'}, svg), d2 = el('circle', {r: 4.5, fill: B.sf.color, visibility: 'hidden'}, svg);
     const tip = tipOf(box), hit = el('rect', {x: m.l, y: m.t, width: W - m.l - m.r, height: H - m.t - m.b, fill: 'transparent'}, svg);
     hit.addEventListener('mousemove', (ev) => { const pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY; const p = pt.matrixTransform(svg.getScreenCTM().inverse());
-      const i = Math.max(0, Math.min(n - 1, Math.round((p.x - m.l) / (W - m.l - m.r) * (n - 1)))), d = data[i], r = ROWS[i];
+      const i = Math.max(0, Math.min(n - 1, Math.floor((p.x - m.l) / step))), d = data[i], r = ROWS[i];
       [rule, d1, d2].forEach(e => e.setAttribute('visibility', 'visible')); rule.setAttribute('x1', x(i)); rule.setAttribute('x2', x(i));
       d1.setAttribute('cx', x(i)); d1.setAttribute('cy', y(d.no)); d2.setAttribute('cx', x(i)); d2.setAttribute('cy', y(d.sf));
       showTip(box, tip, ev, dd(d.d), [[B.no.color, `Notícia ${cents(d.no)} · ${brl(r.np)} de ${brl(r.ni)}`], [B.sf.color, `Solicite ${cents(d.sf)} · ${brl(r.sp)} de ${brl(r.si)}`]]); });
