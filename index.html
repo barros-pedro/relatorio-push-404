@@ -79,14 +79,15 @@ section { margin-bottom: 96px; }
 
 .flag { display: inline-flex; align-items: center; gap: 6px; background: var(--warn-bg); color: var(--warn-fg); font-size: 12px; font-weight: 600; border-radius: 999px; padding: 4px 10px; }
 .tbl { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; min-width: 560px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; min-width: 420px; }
 th { text-align: right; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 10px 12px; border-bottom: 1px solid var(--line); }
 td { text-align: right; padding: 13px 12px; border-bottom: 1px solid var(--line); }
 th:first-child, td:first-child { text-align: left; }
 tr.est td { color: var(--muted); }
 tr.est td:first-child { font-style: italic; }
 td.hl { font-weight: 700; color: var(--fg); }
-.sides3 .side .num { font-size: clamp(2.8rem, 8vw, 4.4rem); }
+.sides3 .side .num { font-size: clamp(3rem, 9vw, 5rem); }
+.ruler-card { margin-bottom: 14px; }
 .foot { border-top: 1px solid var(--line); padding-top: 22px; color: var(--faint); font-size: 12.5px; display: grid; gap: 6px; max-width: 80ch; }
 .foot strong { color: var(--muted); font-weight: 600; }
 </style>
@@ -137,12 +138,17 @@ td.hl { font-weight: 700; color: var(--fg); }
     <p class="lede" id="lede3">—</p>
 
     <div class="duel sides3" id="duel3"></div>
+    <div class="card ruler-card">
+      <h3>Até onde a campanha pode ir no negativo</h3>
+      <p class="note">ROI bruto da campanha. À direita do limite de cada site, o total (campanha + push − taxa) fica no lucro.</p>
+      <div class="chart" id="ch-ruler"></div>
+    </div>
 
     <div class="card">
       <h3>ROI bruto mínimo da campanha para o total empatar</h3>
       <p class="note">ROI bruto é o da planilha de Aquisição (receita AdX antes da taxa). A taxa da plataforma sai de toda a receita do site: campanhas diretas e push. Linhas em itálico são cenários, porque a taxa da Publink não está confirmada.</p>
       <div class="tbl"><table>
-        <thead><tr><th>Site · taxa da plataforma</th><th>Receita bruta mínima por R$ 1</th><th>ROI bruto mínimo</th><th>ROI bruto atual</th><th>ROI líquido total atual</th></tr></thead>
+        <thead><tr><th>Site · taxa da plataforma</th><th>Receita bruta mínima por R$ 1</th><th>ROI bruto mínimo</th></tr></thead>
         <tbody id="tb3"></tbody>
       </table></div>
     </div>
@@ -211,9 +217,10 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
   const sp = (v) => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v * 100).toLocaleString('pt-BR', {maximumFractionDigits: 1}) + '%';
   const sfR = be3('sf', 0.07), noLo = be3('no', 0.07), noHi = be3('no', 0.03);
   document.getElementById('h3').textContent = 'O Solicite precisa empatar na campanha. O Notícia tem folga.';
-  set('lede3', ['Somando o push e descontando a taxa da plataforma, o Solicite só empata se a campanha tiver ROI bruto de ', [sp(sfR.roiMin)], '. O Notícia aguenta entre ', [sp(noLo.roiMin)], ' e ', [sp(noHi.roiMin)], ', conforme a taxa da Publink, que ainda não está confirmada.']);
+  const noMid = (noLo.roiMin + noHi.roiMin) / 2;
+  set('lede3', ['Somando o push e descontando a taxa da plataforma, o Solicite só empata se a campanha tiver ROI bruto de ', [sp(sfR.roiMin)], ', ou seja, praticamente zero. O Notícia aguenta cerca de ', ['~' + sp(noMid)], ' (entre ', sp(noLo.roiMin), ' e ', sp(noHi.roiMin), ', conforme a taxa da Publink, que ainda não está confirmada).']);
   const d3el = document.getElementById('duel3');
-  [[B.no, sp(noLo.roiMin) + ' a ' + sp(noHi.roiMin), 'Publink · taxa não confirmada (3% a 7%)', true], [B.sf, sp(sfR.roiMin), 'Adseleto · ~7% de toda a receita', false]].forEach(([b, v, fee, flag], i) => {
+  [[B.no, '~' + sp(noMid), 'Publink · taxa não confirmada (entre ' + sp(noLo.roiMin) + ' e ' + sp(noHi.roiMin) + ')', true], [B.sf, sp(sfR.roiMin), 'Adseleto · ~7% de toda a receita', false]].forEach(([b, v, fee, flag], i) => {
     const d = document.createElement('div'); d.className = 'side' + (i === 0 ? ' win' : '');
     const who = document.createElement('div'); who.className = 'who'; const dot = document.createElement('i'); dot.style.background = b.color; who.append(dot, document.createTextNode(b.name));
     const num = document.createElement('div'); num.className = 'num'; num.textContent = v;
@@ -224,7 +231,7 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
   const tb3 = document.getElementById('tb3');
   [['Solicite · Adseleto 7%', 'sf', 0.07, false], ['Notícia · Publink 3% (cenário)', 'no', 0.03, true], ['Notícia · Publink 5% (cenário)', 'no', 0.05, true], ['Notícia · Publink 7% (teto)', 'no', 0.07, true]].forEach(([lab, k, f, est]) => {
     const r = be3(k, f), tr = document.createElement('tr'); if (est) tr.className = 'est';
-    [[lab], [cents(r.need)], [sp(r.roiMin), 'hl'], [sp(r.roiNow)], [sp(r.roiNet)]].forEach(([t, c]) => { const td = document.createElement('td'); td.textContent = t; if (c) td.className = c; tr.appendChild(td); });
+    [[lab], [cents(r.need)], [sp(r.roiMin), 'hl']].forEach(([t, c]) => { const td = document.createElement('td'); td.textContent = t; if (c) td.className = c; tr.appendChild(td); });
     tb3.appendChild(tr);
   });
 
@@ -306,7 +313,33 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
       h.addEventListener('mouseleave', () => tip.style.display = 'none'); });
   }
 
-  const draw = () => { ratioChart(); dailyChart(); };
+
+  function rulerChart() {
+    const box = document.getElementById('ch-ruler'); box.textContent = '';
+    const W = Math.max(320, box.clientWidth), H = 150, m = {l: 16, r: 16};
+    const svg = el('svg', {viewBox: `0 0 ${W} ${H}`}, box);
+    const lo = -0.16, hi = 0.04, x = lin(lo, hi, m.l, W - m.r), axisY = 112;
+    // faixas: prejuízo / lucro (referência zero)
+    el('rect', {x: x(lo), y: axisY - 2, width: x(hi) - x(lo), height: 4, rx: 2, fill: 'rgba(15,23,42,0.08)'}, svg);
+    for (let t = -0.15; t <= 0.04; t += 0.05) { const tt = Math.round(t * 100) / 100;
+      el('line', {x1: x(tt), x2: x(tt), y1: axisY + 4, y2: axisY + 9, stroke: 'rgba(15,23,42,0.3)'}, svg);
+      el('text', {x: x(tt), y: axisY + 24, 'text-anchor': 'middle'}, svg).textContent = sp(tt); }
+    el('line', {x1: x(0), x2: x(0), y1: 14, y2: axisY + 4, stroke: 'rgba(15,23,42,0.35)'}, svg);
+    // Notícia: faixa de incerteza + marcador
+    const ny = 44, sy = 84;
+    el('rect', {x: x(noHi.roiMin), y: ny - 9, width: x(noLo.roiMin) - x(noHi.roiMin), height: 18, rx: 9, fill: '#2563eb', 'fill-opacity': 0.14}, svg);
+    el('line', {x1: x(noMid), x2: x(hi), y1: ny, y2: ny, stroke: '#2563eb', 'stroke-width': 2, 'stroke-opacity': 0.35}, svg);
+    el('circle', {cx: x(noMid), cy: ny, r: 7, fill: '#2563eb'}, svg);
+    const tn = el('text', {x: x(noMid), y: ny - 16, 'text-anchor': 'middle', style: 'fill:#0b1224;font-weight:600'}, svg); tn.textContent = 'Notícia ~' + sp(noMid);
+    // Solicite
+    el('line', {x1: x(sfR.roiMin), x2: x(hi), y1: sy, y2: sy, stroke: '#7c3aed', 'stroke-width': 2, 'stroke-opacity': 0.35}, svg);
+    el('circle', {cx: x(sfR.roiMin), cy: sy, r: 7, fill: '#7c3aed'}, svg);
+    const ts = el('text', {x: x(sfR.roiMin) - 12, y: sy + 4, 'text-anchor': 'end', style: 'fill:#0b1224;font-weight:600'}, svg); ts.textContent = 'Solicite ' + sp(sfR.roiMin);
+    el('text', {x: x(lo), y: 12, 'text-anchor': 'start'}, svg).textContent = '← campanha no prejuízo';
+    el('text', {x: x(hi), y: 12, 'text-anchor': 'end'}, svg).textContent = 'lucro →';
+  }
+
+  const draw = () => { ratioChart(); dailyChart(); rulerChart(); };
   draw(); let to; window.addEventListener('resize', () => { clearTimeout(to); to = setTimeout(draw, 150); });
 })();
 </script>
