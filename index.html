@@ -305,7 +305,9 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
       el('rect', {x: x0, width: bw, y: yn(Math.max(0, net)), height: Math.max(1, Math.abs(yn(net) - yn(0))), rx, fill: net >= 0 ? '#7c3aed' : '#ef4444'}, svg); });
     el('line', {x1: m.l, x2: W - m.r, y1: yi(BE), y2: yi(BE), stroke: 'rgba(15,23,42,0.55)', 'stroke-dasharray': '4 4'}, svg);
     const lbl = el('text', {x: m.l + 6, y: yi(BE) - 6, 'text-anchor': 'start', style: 'fill:#0b1224;font-weight:600;paint-order:stroke;stroke:#ffffff;stroke-width:4px;stroke-linejoin:round'}, svg); lbl.textContent = 'equilíbrio ' + brl(BEr);
-    el('line', {x1: m.l, x2: W - m.r, y1: yn(0), y2: yn(0), stroke: 'rgba(15,23,42,0.3)'}, svg);
+    el('line', {x1: m.l, x2: W - m.r, y1: top.b, y2: top.b, stroke: 'rgba(15,23,42,0.45)', 'stroke-width': 1.5}, svg);
+    el('line', {x1: m.l - 4, x2: W - m.r, y1: yn(0), y2: yn(0), stroke: '#0b1224', 'stroke-width': 2}, svg);
+    const z = el('text', {x: W - m.r - 4, y: yn(0) - 6, 'text-anchor': 'end', style: 'fill:#0b1224;font-weight:600;paint-order:stroke;stroke:#ffffff;stroke-width:4px;stroke-linejoin:round'}, svg); z.textContent = 'zero · acima cresce, abaixo encolhe';
     dateAxis(svg, (i) => m.l + i * step + step / 2, H - 8, W);
     const tip = tipOf(box);
     ROWS.forEach((r, i) => { const h = el('rect', {x: m.l + i * step, width: step, y: 0, height: H, fill: 'transparent'}, svg), net = ys[i];
