@@ -59,6 +59,8 @@ section { margin-bottom: 96px; }
 .card h3 { font-size: 15px; font-weight: 600; margin: 0 0 4px; }
 .card .note { color: var(--muted); font-size: 13px; margin: 0 0 14px; max-width: 70ch; }
 .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+.legend i.dash { width: 16px; height: 0; border-top: 2px dashed rgba(15,23,42,0.55); border-radius: 0; vertical-align: 3px; }
+.legend b { color: var(--fg); font-weight: 600; }
 .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
 
 /* base */
@@ -128,7 +130,8 @@ td.hl { font-weight: 700; color: var(--fg); }
 
     <div class="card">
       <h3>Investimento × saldo da base, dia a dia</h3>
-      <p class="note">Saldo = inscritos − descadastros. A linha tracejada é o investimento de equilíbrio; nos dias abaixo dela (cinza) a base costuma encolher (vermelho).</p>
+      <p class="note">Saldo = inscritos − descadastros. Nos dias com investimento abaixo do equilíbrio (cinza), a base costuma encolher (vermelho).</p>
+      <div class="legend"><span><i style="background:#2563eb"></i>Investimento acima do equilíbrio</span><span><i style="background:rgba(100,116,139,0.28)"></i>Abaixo do equilíbrio</span><span><i class="dash"></i><b id="be-leg">Equilíbrio</b></span><span><i style="background:#7c3aed"></i>Base cresceu</span><span><i style="background:#ef4444"></i>Base encolheu</span></div>
       <div class="chart" id="ch-daily"></div>
     </div>
   </section>
@@ -207,6 +210,7 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
   document.getElementById('h2').textContent = `Abaixo de ${brl(BEr)} por dia, a base do Notícia encolhe.`;
   set('lede2', ['A base perde em média ', [int(uns) + ' inscritos por dia'], '. O investimento no Direto é o que repõe essa saída: nos ', [String(below.length) + ' dias'], ' em que ficou abaixo do equilíbrio, a base encolheu em ', [belowNeg === below.length ? 'todos' : String(belowNeg)], '.']);
   document.getElementById('s-out').textContent = int(uns);
+  document.getElementById('be-leg').textContent = 'Equilíbrio: ' + brl(BEr) + '/dia';
   document.getElementById('s-slope').textContent = int(slope * 1000);
   const be = document.getElementById('s-be'); be.textContent = brl(BEr); const sm = document.createElement('small'); sm.textContent = '/dia'; be.appendChild(sm);
 
@@ -304,10 +308,7 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
       el('rect', {x: x0, width: bw, y: yi(r.ni), height: top.b - yi(r.ni), rx, fill: r.ni >= BE ? '#2563eb' : 'rgba(100,116,139,0.28)'}, svg);
       el('rect', {x: x0, width: bw, y: yn(Math.max(0, net)), height: Math.max(1, Math.abs(yn(net) - yn(0))), rx, fill: net >= 0 ? '#7c3aed' : '#ef4444'}, svg); });
     el('line', {x1: m.l, x2: W - m.r, y1: yi(BE), y2: yi(BE), stroke: 'rgba(15,23,42,0.55)', 'stroke-dasharray': '4 4'}, svg);
-    const lbl = el('text', {x: m.l + 6, y: yi(BE) - 6, 'text-anchor': 'start', style: 'fill:#0b1224;font-weight:600;paint-order:stroke;stroke:#ffffff;stroke-width:4px;stroke-linejoin:round'}, svg); lbl.textContent = 'equilíbrio ' + brl(BEr);
-    el('line', {x1: m.l, x2: W - m.r, y1: top.b, y2: top.b, stroke: 'rgba(15,23,42,0.45)', 'stroke-width': 1.5}, svg);
-    el('line', {x1: m.l - 4, x2: W - m.r, y1: yn(0), y2: yn(0), stroke: '#0b1224', 'stroke-width': 2}, svg);
-    const z = el('text', {x: W - m.r - 4, y: yn(0) - 6, 'text-anchor': 'end', style: 'fill:#0b1224;font-weight:600;paint-order:stroke;stroke:#ffffff;stroke-width:4px;stroke-linejoin:round'}, svg); z.textContent = 'zero · acima cresce, abaixo encolhe';
+    el('line', {x1: m.l, x2: W - m.r, y1: yn(0), y2: yn(0), stroke: 'rgba(15,23,42,0.5)', 'stroke-width': 1.25}, svg);
     dateAxis(svg, (i) => m.l + i * step + step / 2, H - 8, W);
     const tip = tipOf(box);
     ROWS.forEach((r, i) => { const h = el('rect', {x: m.l + i * step, width: step, y: 0, height: H, fill: 'transparent'}, svg), net = ys[i];
