@@ -115,6 +115,20 @@ td.hl { font-weight: 700; color: var(--fg); }
       <div class="legend"><span><i style="background:var(--accent)"></i>Notícia Oficial</span><span><i style="background:var(--accent-2)"></i>Solicite Fácil</span><span><i style="background:rgba(148,163,184,0.25)"></i>Investimento do dia (barras, eixo da direita)</span></div>
       <div class="chart" id="ch-ratio"></div>
     </div>
+
+    <div class="card" style="margin-top:14px">
+      <h3>De onde vem a receita de push do Notícia</h3>
+      <p class="note">Soma das chaves de push do Notícia nos três relatórios (Notícia, SF e PF), receita bruta antes da taxa da Publink. As chaves no-sf-br-nt-di e no-sf-br-wd-di não aparecem em nenhum relatório.</p>
+      <div class="tbl"><table>
+        <thead><tr><th>Chave</th><th>Receita em 30 dias</th><th>Por dia</th></tr></thead>
+        <tbody>
+          <tr><td>no-pf-br-nt-di <span style="color:var(--muted)">· notificações → PF</span></td><td>US$ 2.273 · R$ 11.639</td><td>R$ 388</td></tr>
+          <tr><td>no-pf-br-wd-di <span style="color:var(--muted)">· welcome drip → PF</span></td><td>US$ 375 · R$ 1.920</td><td>R$ 64</td></tr>
+          <tr><td>no-no-br-nt-di <span style="color:var(--muted)">· notificações → Notícia</span></td><td>US$ 345 · R$ 1.764</td><td>R$ 59</td></tr>
+          <tr><td class="hl">Total</td><td class="hl">US$ 2.993 · R$ 15.323</td><td class="hl">R$ 511</td></tr>
+        </tbody>
+      </table></div>
+    </div>
   </section>
 
   <section id="base">
