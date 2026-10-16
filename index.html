@@ -66,7 +66,7 @@ section { margin-bottom: 96px; }
 .stat { border: 1px solid var(--line); border-radius: 22px; background: var(--panel); padding: 24px; min-width: 0; box-shadow: var(--shadow); }
 .stat.key { border-color: rgba(37,99,235,0.35); background: linear-gradient(160deg, #eaf1ff, #f6f0ff); }
 .stat .k { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
-.stat .v { font-family: var(--font-display); font-weight: 900; font-size: clamp(2.4rem, 6vw, 3.6rem); line-height: 0.95; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.stat .v { white-space: nowrap; font-family: var(--font-display); font-weight: 900; font-size: clamp(2.2rem, 4.6vw, 3.2rem); line-height: 0.95; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
 .stat .v small { font-size: 0.4em; font-weight: 700; color: var(--muted); letter-spacing: 0; }
 .stat .s { color: var(--muted); font-size: 13px; margin-top: 10px; }
 
@@ -88,6 +88,7 @@ tr.est td:first-child { font-style: italic; }
 td.hl { font-weight: 700; color: var(--fg); }
 .sides3 .side .num { font-size: clamp(3rem, 9vw, 5rem); }
 .ruler-card { margin-bottom: 14px; }
+.approx { font-size: 0.45em; font-weight: 700; color: var(--muted); margin-right: 0.12em; vertical-align: 0.35em; }
 .foot { border-top: 1px solid var(--line); padding-top: 22px; color: var(--faint); font-size: 12.5px; display: grid; gap: 6px; max-width: 80ch; }
 .foot strong { color: var(--muted); font-weight: 600; }
 </style>
@@ -204,7 +205,7 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
   const uns = sum('uns') / n;
   const below = ROWS.filter(r => r.ni < BE), belowNeg = below.filter(r => r.sub - r.uns < 0).length;
   document.getElementById('h2').textContent = `Abaixo de ${brl(BEr)} por dia, a base do Notícia encolhe.`;
-  set('lede2', ['A base perde em média ', [int(uns) + ' inscritos por dia'], '. O investimento no Direto é o que repõe essa saída: nos ', [String(below.length) + ' dias'], ' em que ficou abaixo do equilíbrio, a base encolheu em ', [String(belowNeg)], '.']);
+  set('lede2', ['A base perde em média ', [int(uns) + ' inscritos por dia'], '. O investimento no Direto é o que repõe essa saída: nos ', [String(below.length) + ' dias'], ' em que ficou abaixo do equilíbrio, a base encolheu em ', [belowNeg === below.length ? 'todos' : String(belowNeg)], '.']);
   document.getElementById('s-out').textContent = int(uns);
   document.getElementById('s-slope').textContent = int(slope * 1000);
   const be = document.getElementById('s-be'); be.textContent = brl(BEr); const sm = document.createElement('small'); sm.textContent = '/dia'; be.appendChild(sm);
@@ -218,13 +219,13 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
   const sfR = be3('sf', 0.07), noLo = be3('no', 0.07), noHi = be3('no', 0.03);
   document.getElementById('h3').textContent = 'O Solicite precisa empatar na campanha. O Notícia tem folga.';
   const noMid = (noLo.roiMin + noHi.roiMin) / 2;
-  set('lede3', ['Somando o push e descontando a taxa da plataforma, o Solicite só empata se a campanha tiver ROI bruto de ', [sp(sfR.roiMin)], ', ou seja, praticamente zero. O Notícia aguenta cerca de ', ['~' + sp(noMid)], ' (entre ', sp(noLo.roiMin), ' e ', sp(noHi.roiMin), ', conforme a taxa da Publink, que ainda não está confirmada).']);
+  set('lede3', ['Somando o push e descontando a taxa da plataforma, o Solicite só empata se a campanha tiver ROI bruto de ', [sp(sfR.roiMin)], ', ou seja, praticamente zero. O Notícia aguenta cerca de ', [sp(noMid)], ' (entre ', sp(noLo.roiMin), ' e ', sp(noHi.roiMin), ', conforme a taxa da Publink, que ainda não está confirmada).']);
   const d3el = document.getElementById('duel3');
-  [[B.no, '~' + sp(noMid), 'Publink · taxa não confirmada, considerada entre 3% e 7%', true], [B.sf, sp(sfR.roiMin), 'Adseleto · ~7% de toda a receita', false]].forEach(([b, v, fee, flag], i) => {
+  [[B.no, sp(noMid), 'Publink · taxa não confirmada, considerada entre 3% e 7%', true], [B.sf, sp(sfR.roiMin), 'Adseleto · ~7% de toda a receita', false]].forEach(([b, v, fee, flag], i) => {
     const d = document.createElement('div'); d.className = 'side' + (i === 0 ? ' win' : '');
     const who = document.createElement('div'); who.className = 'who'; const dot = document.createElement('i'); dot.style.background = b.color; who.append(dot, document.createTextNode(b.name));
-    const num = document.createElement('div'); num.className = 'num'; num.textContent = v;
-    const per = document.createElement('p'); per.className = 'per'; per.textContent = 'ROI bruto mínimo da campanha para o total empatar';
+    const num = document.createElement('div'); num.className = 'num'; if (flag) { const ap = document.createElement('span'); ap.className = 'approx'; ap.textContent = '≈'; num.appendChild(ap); } num.appendChild(document.createTextNode(v));
+    const per = document.createElement('p'); per.className = 'per'; per.textContent = flag ? 'ROI bruto mínimo da campanha para o total empatar (média dos cenários)' : 'ROI bruto mínimo da campanha para o total empatar';
     const f = document.createElement('div'); if (flag) { f.className = 'flag'; f.textContent = '⚠ ' + fee; } else { f.className = 'per'; f.style.margin = '0'; f.textContent = fee; }
     d.append(who, num, per, f); d3el.appendChild(d);
   });
@@ -242,7 +243,7 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
   const niceTicks = (lo, hi, count) => { const step0 = (hi - lo) / count, mag = Math.pow(10, Math.floor(Math.log10(step0))), f = step0 / mag;
     const step = (f >= 5 ? 10 : f >= 2 ? 5 : f >= 1 ? 2 : 1) * mag; const L = Math.floor(lo / step) * step, H = Math.ceil(hi / step) * step, out = [];
     for (let v = L; v <= H + 1e-9; v += step) out.push(+v.toFixed(6)); return {ticks: out, lo: L, hi: H}; };
-  const kfmt = (v) => Math.abs(v) >= 1000 ? (v / 1000).toLocaleString('pt-BR', {maximumFractionDigits: 1}) + ' mil' : String(Math.round(v));
+  const kfmt = (v) => (v < 0 ? '−' : '') + (Math.abs(v) >= 1000 ? (Math.abs(v) / 1000).toLocaleString('pt-BR', {maximumFractionDigits: 1}) + ' mil' : String(Math.round(Math.abs(v))));
   const dd = (s) => s.split('-').reverse().join('/');
   const tipOf = (box) => { const t = document.createElement('div'); t.className = 'tip'; box.appendChild(t); return t; };
   const showTip = (box, tip, ev, head, lines) => { tip.textContent = ''; const h = document.createElement('div'); h.className = 't'; h.textContent = head; tip.appendChild(h);
@@ -265,7 +266,6 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
     const vt = niceTicks(0, Math.max(...ROWS.map(r => Math.max(r.ni, r.si))), 4);
     const yv = lin(0, vt.hi, H - m.b, m.t);
     vt.ticks.forEach(t => { const tx = el('text', {x: W - m.r + 8, y: yv(t) + 4, 'text-anchor': 'start', style: 'fill:#64748b'}, svg); tx.textContent = kfmt(t); });
-    el('text', {x: W, y: m.t - 2, 'text-anchor': 'end', style: 'fill:#64748b'}, svg).textContent = 'invest. R$';
     const bw = Math.min(10, step * 0.34);
     ROWS.forEach((r, i) => {
       el('rect', {x: x(i) - bw - 1, width: bw, y: yv(r.ni), height: H - m.b - yv(r.ni), rx: Math.min(3, bw / 2), fill: B.no.color, 'fill-opacity': 0.13}, svg);
@@ -304,7 +304,7 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
       el('rect', {x: x0, width: bw, y: yi(r.ni), height: top.b - yi(r.ni), rx, fill: r.ni >= BE ? '#2563eb' : 'rgba(100,116,139,0.28)'}, svg);
       el('rect', {x: x0, width: bw, y: yn(Math.max(0, net)), height: Math.max(1, Math.abs(yn(net) - yn(0))), rx, fill: net >= 0 ? '#7c3aed' : '#ef4444'}, svg); });
     el('line', {x1: m.l, x2: W - m.r, y1: yi(BE), y2: yi(BE), stroke: 'rgba(15,23,42,0.55)', 'stroke-dasharray': '4 4'}, svg);
-    const lbl = el('text', {x: W - m.r, y: yi(BE) - 6, 'text-anchor': 'end', style: 'fill:#0b1224;font-weight:600'}, svg); lbl.textContent = 'equilíbrio ' + brl(BEr);
+    const lbl = el('text', {x: m.l + 6, y: yi(BE) - 6, 'text-anchor': 'start', style: 'fill:#0b1224;font-weight:600;paint-order:stroke;stroke:#ffffff;stroke-width:4px;stroke-linejoin:round'}, svg); lbl.textContent = 'equilíbrio ' + brl(BEr);
     el('line', {x1: m.l, x2: W - m.r, y1: yn(0), y2: yn(0), stroke: 'rgba(15,23,42,0.3)'}, svg);
     dateAxis(svg, (i) => m.l + i * step + step / 2, H - 8, W);
     const tip = tipOf(box);
@@ -330,7 +330,7 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
     el('rect', {x: x(noHi.roiMin), y: ny - 9, width: x(noLo.roiMin) - x(noHi.roiMin), height: 18, rx: 9, fill: '#2563eb', 'fill-opacity': 0.14}, svg);
     el('line', {x1: x(noMid), x2: x(hi), y1: ny, y2: ny, stroke: '#2563eb', 'stroke-width': 2, 'stroke-opacity': 0.35}, svg);
     el('circle', {cx: x(noMid), cy: ny, r: 7, fill: '#2563eb'}, svg);
-    const tn = el('text', {x: x(noMid), y: ny - 16, 'text-anchor': 'middle', style: 'fill:#0b1224;font-weight:600'}, svg); tn.textContent = 'Notícia ~' + sp(noMid);
+    const tn = el('text', {x: x(noMid), y: ny - 16, 'text-anchor': 'middle', style: 'fill:#0b1224;font-weight:600'}, svg); tn.textContent = 'Notícia ≈ ' + sp(noMid);
     // Solicite
     el('line', {x1: x(sfR.roiMin), x2: x(hi), y1: sy, y2: sy, stroke: '#7c3aed', 'stroke-width': 2, 'stroke-opacity': 0.35}, svg);
     el('circle', {cx: x(sfR.roiMin), cy: sy, r: 7, fill: '#7c3aed'}, svg);
