@@ -220,7 +220,7 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
   const noMid = (noLo.roiMin + noHi.roiMin) / 2;
   set('lede3', ['Somando o push e descontando a taxa da plataforma, o Solicite só empata se a campanha tiver ROI bruto de ', [sp(sfR.roiMin)], ', ou seja, praticamente zero. O Notícia aguenta cerca de ', ['~' + sp(noMid)], ' (entre ', sp(noLo.roiMin), ' e ', sp(noHi.roiMin), ', conforme a taxa da Publink, que ainda não está confirmada).']);
   const d3el = document.getElementById('duel3');
-  [[B.no, '~' + sp(noMid), 'Publink · taxa não confirmada (entre ' + sp(noLo.roiMin) + ' e ' + sp(noHi.roiMin) + ')', true], [B.sf, sp(sfR.roiMin), 'Adseleto · ~7% de toda a receita', false]].forEach(([b, v, fee, flag], i) => {
+  [[B.no, '~' + sp(noMid), 'Publink · taxa não confirmada, considerada entre 3% e 7%', true], [B.sf, sp(sfR.roiMin), 'Adseleto · ~7% de toda a receita', false]].forEach(([b, v, fee, flag], i) => {
     const d = document.createElement('div'); d.className = 'side' + (i === 0 ? ' win' : '');
     const who = document.createElement('div'); who.className = 'who'; const dot = document.createElement('i'); dot.style.background = b.color; who.append(dot, document.createTextNode(b.name));
     const num = document.createElement('div'); num.className = 'num'; num.textContent = v;
