@@ -171,7 +171,7 @@ td.hl { font-weight: 700; color: var(--fg); }
 
     <div class="card">
       <h3>ROI bruto mínimo da campanha para o total empatar</h3>
-      <p class="note">ROI bruto é o da planilha de Aquisição (receita AdX antes da taxa). A taxa da plataforma sai de toda a receita do site: campanhas diretas e push. Linhas em itálico são cenários, porque a taxa da Publink não está confirmada.</p>
+      <p class="note">ROI bruto é o da planilha de Aquisição (receita AdX antes da taxa). A taxa da plataforma sai de toda a receita do site: campanhas diretas e push. Os dois sites usam a Adseleto, com taxa de ~7%.</p>
       <div class="tbl"><table>
         <thead><tr><th>Site · taxa da plataforma</th><th>Receita bruta mínima por R$ 1</th><th>ROI bruto mínimo</th></tr></thead>
         <tbody id="tb3"></tbody>
@@ -182,7 +182,7 @@ td.hl { font-weight: 700; color: var(--fg); }
   <div class="foot">
     <div><strong>Receita de push:</strong> Ad Exchange das chaves de notificação (nt) e welcome drip (wd) de cada base, somadas nos sites Notícia, Solicite e Portal Finança. Câmbio US$ 1 = R$ 5,1202.</div>
     <div><strong>Investimento:</strong> conta "Direto Brasil" no Google Ads, campanhas que começam com no (Notícia) ou sf (Solicite).</div>
-    <div><strong>Taxas:</strong> Adseleto (Solicite) ~7% de toda a receita do site. Publink (Notícia) cobra menos, mas o valor não está confirmado; usamos cenários de 3%, 5% e 7%.</div>
+    <div><strong>Taxas:</strong> Adseleto ~7% de toda a receita do site, tanto no Notícia quanto no Solicite.</div>
     <div><strong>Equilíbrio:</strong> regressão linear do saldo diário da base sobre o investimento do mesmo dia. É uma estimativa sobre 30 dias; se o volume de disparos ou de descadastros mudar, ele muda junto.</div>
   </div>
 </div>
@@ -241,12 +241,12 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
   const be3 = (k, f) => { const inv = B[k].inv, p = B[k].push, d = dir[k];
     const need = inv / (1 - f) - p; return {need: need / inv, roiMin: need / inv - 1, roiNow: (d - inv) / inv, roiNet: ((d + p) * (1 - f) - inv) / inv}; };
   const sp = (v) => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v * 100).toLocaleString('pt-BR', {maximumFractionDigits: 1}) + '%';
-  const sfR = be3('sf', 0.07), noLo = be3('no', 0.07), noHi = be3('no', 0.03);
+  const sfR = be3('sf', 0.07), noR = be3('no', 0.07);
   document.getElementById('h3').textContent = 'O Solicite precisa empatar na campanha. O Notícia tem folga.';
-  const noMid = (noLo.roiMin + noHi.roiMin) / 2;
-  set('lede3', ['Somando o push e descontando a taxa da plataforma, o Solicite só empata se a campanha tiver ROI bruto de ', [sp(sfR.roiMin)], ', ou seja, praticamente zero. O Notícia aguenta cerca de ', [sp(noMid)], ' (entre ', sp(noLo.roiMin), ' e ', sp(noHi.roiMin), ', conforme a taxa da Publink, que ainda não está confirmada).']);
+  const noMid = noR.roiMin;
+  set('lede3', ['Somando o push e descontando a taxa da plataforma, o Solicite só empata se a campanha tiver ROI bruto de ', [sp(sfR.roiMin)], ', ou seja, praticamente zero. O Notícia aguenta até ', [sp(noMid)], '.']);
   const d3el = document.getElementById('duel3');
-  [[B.no, sp(noMid), 'Publink · taxa não confirmada, considerada entre 3% e 7%', true], [B.sf, sp(sfR.roiMin), 'Adseleto · ~7% de toda a receita', false]].forEach(([b, v, fee, flag], i) => {
+  [[B.no, sp(noMid), 'Adseleto · ~7% de toda a receita', false], [B.sf, sp(sfR.roiMin), 'Adseleto · ~7% de toda a receita', false]].forEach(([b, v, fee, flag], i) => {
     const d = document.createElement('div'); d.className = 'side' + (i === 0 ? ' win' : '');
     const who = document.createElement('div'); who.className = 'who'; const dot = document.createElement('i'); dot.style.background = b.color; who.append(dot, document.createTextNode(b.name));
     const num = document.createElement('div'); num.className = 'num'; if (flag) { const ap = document.createElement('span'); ap.className = 'approx'; ap.textContent = '≈'; num.appendChild(ap); } num.appendChild(document.createTextNode(v));
@@ -255,7 +255,7 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
     d.append(who, num, per, f); d3el.appendChild(d);
   });
   const tb3 = document.getElementById('tb3');
-  [['Solicite · Adseleto 7%', 'sf', 0.07, false], ['Notícia · Publink 3% (cenário)', 'no', 0.03, true], ['Notícia · Publink 5% (cenário)', 'no', 0.05, true], ['Notícia · Publink 7% (teto)', 'no', 0.07, true]].forEach(([lab, k, f, est]) => {
+  [['Notícia · Adseleto 7%', 'no', 0.07, false], ['Solicite · Adseleto 7%', 'sf', 0.07, false]].forEach(([lab, k, f, est]) => {
     const r = be3(k, f), tr = document.createElement('tr'); if (est) tr.className = 'est';
     [[lab], [cents(r.need)], [sp(r.roiMin), 'hl']].forEach(([t, c]) => { const td = document.createElement('td'); td.textContent = t; if (c) td.className = c; tr.appendChild(td); });
     tb3.appendChild(tr);
@@ -349,12 +349,11 @@ const ROWS=[{"d":"09-16","ni":2752.9,"np":328.0,"nd":3690.69,"si":3951.29,"sp":2
       el('line', {x1: x(tt), x2: x(tt), y1: axisY + 4, y2: axisY + 9, stroke: 'rgba(15,23,42,0.3)'}, svg);
       el('text', {x: x(tt), y: axisY + 24, 'text-anchor': 'middle'}, svg).textContent = sp(tt); }
     el('line', {x1: x(0), x2: x(0), y1: 14, y2: axisY + 4, stroke: 'rgba(15,23,42,0.35)'}, svg);
-    // Notícia: faixa de incerteza + marcador
+    // Notícia
     const ny = 44, sy = 84;
-    el('rect', {x: x(noHi.roiMin), y: ny - 9, width: x(noLo.roiMin) - x(noHi.roiMin), height: 18, rx: 9, fill: '#2563eb', 'fill-opacity': 0.14}, svg);
     el('line', {x1: x(noMid), x2: x(hi), y1: ny, y2: ny, stroke: '#2563eb', 'stroke-width': 2, 'stroke-opacity': 0.35}, svg);
     el('circle', {cx: x(noMid), cy: ny, r: 7, fill: '#2563eb'}, svg);
-    const tn = el('text', {x: x(noMid), y: ny - 16, 'text-anchor': 'middle', style: 'fill:#0b1224;font-weight:600'}, svg); tn.textContent = 'Notícia ≈ ' + sp(noMid);
+    const tn = el('text', {x: x(noMid), y: ny - 16, 'text-anchor': 'middle', style: 'fill:#0b1224;font-weight:600'}, svg); tn.textContent = 'Notícia ' + sp(noMid);
     // Solicite
     el('line', {x1: x(sfR.roiMin), x2: x(hi), y1: sy, y2: sy, stroke: '#7c3aed', 'stroke-width': 2, 'stroke-opacity': 0.35}, svg);
     el('circle', {cx: x(sfR.roiMin), cy: sy, r: 7, fill: '#7c3aed'}, svg);
